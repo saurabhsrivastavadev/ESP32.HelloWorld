@@ -1,15 +1,16 @@
-/**
-    SerialUtils.ino
-    Created on: 10.Jul.2022
-
-    Serial Port communication utilities.
+/*
+  SerialUtils.cpp - Library containing Serial utilities.
+  Created by me@saurabhsrivastava.dev, July 12, 2022.
+  Released into the public domain.
 */
 
 #include <Arduino.h>
+#include "SerialUtils.h"
+
 #include <string>
 #include <sstream>
 
-void prepareSerial() {
+void SerialUtils::prepareSerial() {
 
   Serial.begin(115200);
   delay(1000);
@@ -23,7 +24,7 @@ void prepareSerial() {
 }
 
 // Function to block for serial input 
-std::string serialInputBlocking(const std::string& msg, char terminatingChar = '\n') {
+std::string SerialUtils::serialInputBlocking(const std::string& msg, char terminatingChar) {
   
   Serial.print(msg.c_str());
 
@@ -44,21 +45,4 @@ std::string serialInputBlocking(const std::string& msg, char terminatingChar = '
 
   Serial.println();
   return ss.str();
-}
-
-// SETUP and LOOP
-void setup() {
-  
-  prepareSerial();
-}
-
-void loop() {
-
-  Serial.println("In the loop.");
-
-  serialInputBlocking("Please type your name: ");
-
-  Serial.println("Going to sleep for 10 seconds..");
-
-  delay(10000);
 }
